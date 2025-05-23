@@ -175,6 +175,7 @@ background-color: FFE0E0;
 border-radius: 5px;
 padding: 6px 12px;
 font-size: 14;
+visibility: hidden;
 }
   </style>
   <body>
@@ -280,7 +281,7 @@ font-size: 14;
             <button onClick="runAllXmlGen()"><h3>Generate XML</h3></button>
           </p>
 <!--Temporary solution.-->
-        <button class="ImportantButtonToPress" onClick="openGithubPage('nextchaptxml')">Following Chapter Manual XML editing</button><button class="ImportantButtonToPress" onClick="openGithubPage('prevchaptxml')">Previous Chapter Manual XML editing</button>
+        <button id="ChaptXmlManualEdit1" class="ImportantButtonToPress" onClick="openGithubPage('nextchaptxml')">Following Chapter Manual XML editing</button><button id="ChaptXmlManualEdit2" class="ImportantButtonToPress" onClick="openGithubPage('prevchaptxml')">Previous Chapter Manual XML editing</button>
         </p>
       </div>
     </div>
@@ -342,10 +343,23 @@ disableDualField('ChaptHasNextChapter', 'NextChaptSeriesID', 'NextChaptNumber')
 //Functions
 
 function runAllXmlGen() {
-  //NextChaptXMLParent.style.visibility = 'visible';
-  //PrevChaptXMLParent.style.visibility = 'visible';
   NextChaptCheckBox = document.getElementById("ChaptHasNextChapter");
   LastChaptCheckBox = document.getElementById("ChaptHasPreviousChapter");
+  const temporarybutton1 = document.getElementById("ChaptXmlManualEdit1");
+  const temporarybutton2 = document.getElementById("ChaptXmlManualEdit2");
+  //NextChaptXMLParent.style.visibility = 'visible';
+  //PrevChaptXMLParent.style.visibility = 'visible';
+  if (NextChaptCheckBox.checked) {
+    temporarybutton1.style.visibility = 'visible';
+  } else {
+    temporarybutton1.style.visibility = 'hidden';
+  }
+  if (LastChaptCheckBox.checked) {
+    temporarybutton2.style.visibility = 'visible';
+  } else {
+    temporarybutton2.style.visibility = 'hidden';
+  }
+
 
   regenerateSeriesXML()
   generateCurrentChapterXML()
@@ -391,12 +405,21 @@ function regenerateSeriesXML() {
   let i2 = 1;
   NeedReturnToSetting = document.getElementById("NeedReturnToSetting");
   if (NeedReturnToSetting.checked) {
-    var NewChapterStorageLocation = "modified";
+    const KuseNiNarisouStyleSeriesID = document.getElementById("KuseNiNarisouStyleSeriesID");
+    var NewChapterStorageLocation = KuseNiNarisouStyleSeriesID.value;
   } else {
     var NewChapterStorageLocation = SeriesXMLSeriesID;
   }
+
+  if (ChaptNumberElement.value === "") {
+    var ChaptNumber = "";
+  } else {
+    var ChaptNumber = verifyDoubleDigitMinimumConformity(ChaptNumberElement.value);
+  }
+
+
   if (NavDropdown.value === "0") {
-    SeriesEntryInsertionPoint.insertAdjacentText('beforeend','    <ent-' + i + '>' + NewChapterStorageLocation + '/Chapt' + verifyDoubleDigitMinimumConformity (ChaptNumberElement.value) + '/</ent-' + i++ + '>\n');
+    SeriesEntryInsertionPoint.insertAdjacentText('beforeend','    <ent-' + i + '>' + NewChapterStorageLocation + '/Chapt' + ChaptNumber + '/</ent-' + i++ + '>\n');
     
   }
   for (i = i; i < SeriesXMLChapterTotal; i++) {
@@ -404,7 +427,7 @@ function regenerateSeriesXML() {
     console.log("Pasted in " + SeriesXMLChaptersArray.at(i - 1));
     console.log(i + " and " + NavDropdown.value);
     if (i == NavDropdown.value) {
-      SeriesEntryInsertionPoint.insertAdjacentText('beforeend','    <ent-' + ++i + '>' + NewChapterStorageLocation + '/Chapt' + verifyDoubleDigitMinimumConformity(ChaptNumberElement.value) + '/</ent-' + i + '>\n');
+      SeriesEntryInsertionPoint.insertAdjacentText('beforeend','    <ent-' + ++i + '>' + NewChapterStorageLocation + '/Chapt' + ChaptNumber + '/</ent-' + i + '>\n');
     }
     ++i2;
   } 
@@ -752,7 +775,7 @@ function checkFinishedXmlForEmptyTags() {
   if (xmlTestCurrChapt.includes("></") || xmlTestCurrChapt.includes(">1900/1/1<")) {
     CurrentChapterEntryInsertionPoint.innerText = 'Empty tags were generated, please check your configuration.';
   }
-  if (xmlTestSeries.includes("></") || xmlTestSeries.includes("/Chapt/")) {
+  if (xmlTestSeries.includes("></") || xmlTestSeries.includes("/Chapt/") || xmlTestSeries.includes(">/Chapt")) {
     SeriesEntryInsertionPoint.innerText = 'Empty tags were generated, please check your configuration.';
   }
 }
