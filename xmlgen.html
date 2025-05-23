@@ -169,6 +169,13 @@ textarea:placeholder-shown {
   border: 2px solid #E0D0D0;
   background-color: FFE0E0;
 }
+.ImportantButtonToPress {
+border: 2px solid #E0D0D0;
+background-color: FFE0E0;
+border-radius: 5px;
+padding: 6px 12px;
+font-size: 14;
+}
   </style>
   <body>
     <h1>SierraComix Manga Reader XML generator - chapter addition to existing series</h1>
@@ -273,7 +280,7 @@ textarea:placeholder-shown {
             <button onClick="runAllXmlGen()"><h3>Generate XML</h3></button>
           </p>
 <!--Temporary solution.-->
-        <button onClick="openGithubPage('nextchaptxml')">Following Chapter Manual XML editing</button><button onClick="openGithubPage('prevchaptxml')">Previous Chapter Manual XML editing</button>
+        <button class="ImportantButtonToPress" onClick="openGithubPage('nextchaptxml')">Following Chapter Manual XML editing</button><button class="ImportantButtonToPress" onClick="openGithubPage('prevchaptxml')">Previous Chapter Manual XML editing</button>
         </p>
       </div>
     </div>
