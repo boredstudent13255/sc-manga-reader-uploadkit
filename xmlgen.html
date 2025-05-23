@@ -44,6 +44,131 @@ button {
 .minitext {
   font-size: 14;
 }
+.CurrentChapterPreviewParent {
+  background-color: 252525;
+  padding-top: 15px;
+  padding-bottom: 1px;
+  padding-left: 5%;
+  padding-right: 20%;
+  height: 300px;
+}
+.scan-chapter {
+  padding: 0.5%;
+  overflow: hidden;
+  background-color: 383838;
+  margin-bottom: 1%;
+  border-radius: 3px;
+  color: FFFFFF;
+  font-family: Arial;
+}
+.scan-chapter:hover {
+  background-color: 505050;
+}
+.chapt-data {
+  padding-top: 0px;
+}
+.chapt-data-2 {
+ font-size: 15;
+  padding-left: 10px;
+  margin-top: 4px;
+}
+.scandata2 {
+  font-weight: 300;
+}
+.chapter-title-en {
+  margin-left: 3px;
+  font-size: 18;
+  font-weight: 450;
+}
+.is-one-shot {
+  color: FFFFFF;
+  background-color: E84545;
+  padding: 1px;
+  padding-left: 5px;
+  padding-right: 6px;
+  margin-right: 5px;
+  border-radius: 6px;
+  font-weight: 450;
+}
+.arc-title {
+  color: FFFFFF;
+  background-color: 6484CE;
+  padding: 1px;
+  padding-left: 5px;
+  padding-right: 6px;
+  margin-right: 5px;
+  border-radius: 6px;
+  font-weight: 450;
+}
+.chapter-title-ja {
+  padding-top: 5px;
+  font-size: 14;
+  padding-left: 10px;
+}
+.arc-title-ja {
+  background-color: 476292;
+  padding: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-right: 12px;
+  border-radius: 3px;
+  font-weight: 1000;
+ }
+.AdditionalSettingsFloat {
+  position: absolute;
+  float: left;
+  transform: translate(600px, -325px);
+}
+/*
+Note: The CSS for the input fields does not exist to look nice. It exists to serve as a visual cue for when a field has been left empty. This isn't really an end user thing, visual pleasure isn't a concern.
+*/
+input {
+  transition: all 0.1s ease-in-out;
+  border-width: 5px;
+  border: 2px solid #D0D0E0;
+  background-color: F5F5FF;
+  border-radius: 5px;
+  padding: 3px 6px;
+  box-sizing: border-box;
+}
+input:placeholder-shown {
+  border: 2px solid #E0D0D0;
+  background-color: FFE0E0;
+}
+input:disabled {
+  background-color: FFFFFF;
+  border: 2px solid #F0F0F5;
+  color: DDDDDD;
+}
+select {
+  transition: all 0.1s ease-in-out;
+  border-width: 5px;
+  border: 2px solid #D0D0E0;
+  background-color: F5F5FF;
+  border-radius: 5px;
+  padding: 3px 8px;
+  box-sizing: border-box;
+}
+select:disabled {
+  background-color: FFFFFF;
+  border: 2px solid #F0F0F5;
+  color: DDDDDD;
+}
+textarea {
+  transition: all 0.1s ease-in-out;
+  border-width: 5px;
+  border: 2px solid #D0D0E0;
+  background-color: F8F8FF;
+  border-radius: 5px;
+  padding: 3px 6px;
+  box-sizing: border-box;
+  font-family: Arial;
+  font-size: 14;
+}
+textarea:placeholder-shown {
+  border: 2px solid #E0D0D0;
+  background-color: FFE0E0;
+}
   </style>
   <body>
     <h1>SierraComix Manga Reader XML generator - chapter addition to existing series</h1>
@@ -75,11 +200,11 @@ button {
         <br><br>
 
 <!--Main chapter, arc titles form-->
-        Include Arc Titles? <input onClick="disableDualField('HasChapterArcTitles', 'ScanlationArcTitle', 'OriginalChapterArcTitle')" id="HasChapterArcTitles" type="checkbox">
+        Include Arc Titles? <input onClick="disableDualField('HasChapterArcTitles', 'ScanlationArcTitle', 'OriginalChapterArcTitle')" id="HasChapterArcTitles" type="checkbox" checked>
         <br>
-        <input type="text" id="ScanlationArcTitle" name="ChaptArcTitle" placeholder="English Arc Title" style="width: 500px; font-size: 18;" disabled>
+        <input type="text" id="ScanlationArcTitle" name="ChaptArcTitle" placeholder="English Arc Title" style="width: 500px; font-size: 18;">
         <p>
-          <input type="text" id="OriginalChapterArcTitle" name="ChaptArcTitleJa" placeholder="Japanese Arc Title" style="width: 500px; font-size: 14;" disabled>
+          <input type="text" id="OriginalChapterArcTitle" name="ChaptArcTitleJa" placeholder="Japanese Arc Title" style="width: 500px; font-size: 14;">
         </p>
 
 <!--Main chapter, titles form-->
@@ -91,19 +216,18 @@ button {
         </p>
 
 <!--Main chapter, description-->
-        <input type="text" id="ScanlationSummary" name="ScanSummary" placeholder="English Chapter Summary" style="width: 500px; height: 50px; overflow: scroll;" value="Description Here">
+        <textarea id="ScanlationSummary" name="ScanSummary" placeholder="English Chapter Summary" style="width: 500px; height: 100px; resize: none;" value="Description Here"></textarea>
 
 <!--Release info form-->
         <p>
-          Released on <input id="InitialReleaseDateSetting" type="text" value="1900/1/1" style="width: 75px;"> 
+          Released on <input id="InitialReleaseDateSetting" type="text" placeholder="1900/1/1" style="width: 75px;"> 
           <br>
-          Scanlated on <input id="ScanlationDateSetting" type="text" value="2020/1/1" style="width: 75px;"> by <input id="ScanlatorSetting" type="text" value="My Future Translations" style="width: 300px;">
+          Scanlated on <input id="ScanlationDateSetting" type="text" placeholder="2020/1/1" style="width: 75px;"> by <input id="ScanlatorSetting" type="text" placeholder="My Future Translations" style="width: 300px;">
           <br>
           <span class="minitext">YYYY/MM/DD, please. No forced digit conformity.</span>
         </p>
-
+        <div class="AdditionalSettingsFloat">
 <!--Series handling form-->
-        <br><br>
         <span class="FieldLabel">Chapter type: </span>
         <select name="ChapterType" id="ChapterReleaseType" serialization>
           <option value="serialization">Serialization</option>
@@ -118,15 +242,15 @@ button {
 
 <!--Previous chapter form-->
         <br><br>
-        <span class="FieldLabel">Previous Chapter? <input id="ChaptHasPreviousChapter" type="checkbox" onClick="disableDualField('ChaptHasPreviousChapter', 'PrevChaptSeriesID', 'PrevChaptNumber')" checked></span> <span class="minitext">(Only for use if this chapter <b>already exists</b>.)</span>
+        <span class="FieldLabel">Previous Chapter? <input id="ChaptHasPreviousChapter" type="checkbox" onClick="disableDualField('ChaptHasPreviousChapter', 'PrevChaptSeriesID', 'PrevChaptNumber')" checked></span> <span class="minitext">(Inserts lead-ins to the previous chapter. Only for use if that chapter <b>already exists</b>.)</span>
         <br>
         <input type="text" id="PrevChaptSeriesID" placeholder="Series ID for chapter" style="width: 150px;"> <input type="text" id="PrevChaptNumber" placeholder="Ch.#" style="width: 50px;"> <button onClick="checkChapterTitle('InsertLastChapt','PrevChaptSeriesID','PrevChaptNumber')">Check Title</button> <span id="InsertLastChapt"></span>
 
 <!--Next chapter form-->
         <br><br>
-        <span class="FieldLabel"> Following Chapter? <input id="ChaptHasNextChapter" type="checkbox" onClick="disableDualField('ChaptHasNextChapter', 'NextChaptSeriesID', 'NextChaptNumber')"></span> <span class="minitext">(Only for use if this chapter <b>already exists</b>.)</span>
+        <span class="FieldLabel"> Following Chapter? <input id="ChaptHasNextChapter" type="checkbox" onClick="disableDualField('ChaptHasNextChapter', 'NextChaptSeriesID', 'NextChaptNumber')" checked></span> <span class="minitext">(Inserts lead-ins to the next chapter. Only for use if that chapter <b>already exists</b>.)</span>
         <br>
-        <input type="text" id="NextChaptSeriesID" placeholder="Series ID for chapter" style="width: 150px;" disabled> <input type="text" id="NextChaptNumber" placeholder="Ch.#" style="width: 50px;" disabled> <button onClick="checkChapterTitle('InsertNextChapt','NextChaptSeriesID','NextChaptNumber')">Check Title</button> <span id="InsertNextChapt"></span>
+        <input type="text" id="NextChaptSeriesID" placeholder="Series ID for chapter" style="width: 150px;"> <input type="text" id="NextChaptNumber" placeholder="Ch.#" style="width: 50px;"> <button onClick="checkChapterTitle('InsertNextChapt','NextChaptSeriesID','NextChaptNumber')">Check Title</button> <span id="InsertNextChapt"></span>
 
 <!--Chapter Placement drop-down-->
         <br><br>
@@ -136,17 +260,23 @@ button {
         <select name="Chapter Placement Setting" id="ChapterPlacementSetting">
           <option value="0">nothing. Place Before All</option>
         </select>
-
-        <br><br><br>
-        <p>
-          <button onClick="runAllXmlGen()"><h3>Generate XML</h3></button>
-        </p>
-        <br>
+        </div>
+<!--Preview generator-->
+        <br><br>
+        <div class="deTranslate">
+          <button onClick="regeneratePreviewChapterEntry()">Generate Preview</button>
+        </div>
+          <div class="CurrentChapterPreviewParent" id="CurrentChapterPreviewParent"></div>
+        <div class="deTranslate">
+          <br><br>
+          <p>
+            <button onClick="runAllXmlGen()"><h3>Generate XML</h3></button>
+          </p>
 <!--Temporary solution.-->
-<button onClick="openGithubPage('nextchaptxml')">Following Chapter Manual XML editing</button><button onClick="openGithubPage('prevchaptxml')">Previous Chapter Manual XML editing</button>
-      </p>
+        <button onClick="openGithubPage('nextchaptxml')">Following Chapter Manual XML editing</button><button onClick="openGithubPage('prevchaptxml')">Previous Chapter Manual XML editing</button>
+        </p>
+      </div>
     </div>
-
 <!--Series XML-->
     <div class="generated-xml-parent" id="SeriesXMLParent">
       <span class="XMLLabels">Series XML</span> <button onClick="copyToClipboard('SeriesDotXMLReGenerated')">Copy to Clipboard</button><button onClick="openGithubPage('seriesxml')">Go to paste location</button>
@@ -178,11 +308,28 @@ button {
 &lt;chapter&gt;
 </div></pre>
     </div>
-
   </body>
   <script>
-var SeriesXMLDisplayTitle, SeriesXMLDisplayTitleOrig, SeriesXMLOverview, SeriesXMLChapterTotal, SeriesXMLChapterListOrder, SeriesXMLSeriesID, ChapterEntryInsertionPoint, NextChaptCheckBox, LastChaptCheckBox, NeedReturnToSetting, LastLaunchedFinalXML, ChaptNumberElement;
+var SeriesXMLDisplayTitle, SeriesXMLDisplayTitleOrig, SeriesXMLOverview, SeriesXMLChapterTotal, SeriesXMLChapterListOrder, SeriesXMLSeriesID, CurrentChapterEntryInsertionPoint, NextChaptCheckBox, LastChaptCheckBox, NeedReturnToSetting, LastLaunchedFinalXML, ChaptNumberElement, NavDropdown;
 var SeriesXMLChaptersArray = [];
+
+
+//Allows retrieving the series XML by pressing 'enter' in the ID textbox
+const textbox = document.getElementById('SeriesIDEntryField');
+textbox.addEventListener('keydown', function(event) {
+ if (event.key === 'Enter') {
+ event.preventDefault();
+retrieveSeriesXML('SeriesIDEntryField')
+}
+});
+
+//Re-disables any user-disabled fields on reload
+disableSingleField('NeedReturnToSetting','KuseNiNarisouStyleSeriesID')
+disableDualField('HasChapterArcTitles', 'ScanlationArcTitle', 'OriginalChapterArcTitle')
+disableDualField('HasChapterTitles', 'ScanlationTitle', 'OriginalChapterTitle')
+disableDualField('ChaptHasPreviousChapter', 'PrevChaptSeriesID', 'PrevChaptNumber')
+disableDualField('ChaptHasNextChapter', 'NextChaptSeriesID', 'NextChaptNumber')
+
 
 
 //Functions
@@ -205,6 +352,7 @@ function runAllXmlGen() {
   if (LastChaptCheckBox.checked) {
     regenerateNeighboringChapterXML("PreviousChapterChapterDotXMLReGenerated")
   }
+  checkFinishedXmlForEmptyTags()
 }
 
 function regenerateNeighboringChapterXML(ChapterAndInsertPoint) {
@@ -228,7 +376,7 @@ function regenerateSeriesXML() {
   
   //Insert Chapters
   ChaptNumberElement = document.getElementById("ChaptNumber");
-  const NavDropdown = document.getElementById("ChapterPlacementSetting");
+  NavDropdown = document.getElementById("ChapterPlacementSetting");
   console.log("selected is " + NavDropdown.value);
   ++SeriesXMLChapterTotal;
   ++SeriesXMLChapterTotal;
@@ -241,7 +389,7 @@ function regenerateSeriesXML() {
     var NewChapterStorageLocation = SeriesXMLSeriesID;
   }
   if (NavDropdown.value === "0") {
-    SeriesEntryInsertionPoint.insertAdjacentText('beforeend','    <ent-' + i + '>' + NewChapterStorageLocation + '/Chapt' + ChaptNumberElement.value + '/</ent-' + i++ + '>\n');
+    SeriesEntryInsertionPoint.insertAdjacentText('beforeend','    <ent-' + i + '>' + NewChapterStorageLocation + '/Chapt' + verifyDoubleDigitMinimumConformity (ChaptNumberElement.value) + '/</ent-' + i++ + '>\n');
     
   }
   for (i = i; i < SeriesXMLChapterTotal; i++) {
@@ -249,7 +397,7 @@ function regenerateSeriesXML() {
     console.log("Pasted in " + SeriesXMLChaptersArray.at(i - 1));
     console.log(i + " and " + NavDropdown.value);
     if (i == NavDropdown.value) {
-      SeriesEntryInsertionPoint.insertAdjacentText('beforeend','    <ent-' + ++i + '>' + NewChapterStorageLocation + '/Chapt' + ChaptNumberElement.value + '/</ent-' + i + '>\n');
+      SeriesEntryInsertionPoint.insertAdjacentText('beforeend','    <ent-' + ++i + '>' + NewChapterStorageLocation + '/Chapt' + verifyDoubleDigitMinimumConformity(ChaptNumberElement.value) + '/</ent-' + i + '>\n');
     }
     ++i2;
   } 
@@ -263,9 +411,9 @@ function regenerateSeriesXML() {
 //Generate XML for Current Chapter
 function generateCurrentChapterXML() {
   CurrChaptXMLParent.style.visibility = 'visible';
-  ChapterEntryInsertionPoint = document.querySelector("#CurrentChapterChapterDotXMLReGenerated");
-  ChapterEntryInsertionPoint.innerText = '';
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','<chapter>\n');
+  CurrentChapterEntryInsertionPoint = document.querySelector("#CurrentChapterChapterDotXMLReGenerated");
+  CurrentChapterEntryInsertionPoint.innerText = '';
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','<chapter>\n');
   NeedReturnToSetting = document.getElementById("NeedReturnToSetting");
   const doArcTitles = document.getElementById("HasChapterArcTitles");
   const doChaptTitles = document.getElementById("HasChapterTitles");
@@ -275,38 +423,41 @@ function generateCurrentChapterXML() {
   const SeriesIDEntryFieldElement = document.getElementById("SeriesIDEntryField");
   if (NeedReturnToSetting.checked) {
     const KuseNiNarisouStyleSeriesIDElement = document.getElementById("KuseNiNarisouStyleSeriesID");
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <returnto>' + SeriesIDEntryFieldElement.value + '</returnto>\n');
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','\n');
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <parentseries>' + KuseNiNarisouStyleSeriesIDElement.value + '</parentseries>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <returnto>' + SeriesIDEntryFieldElement.value + '</returnto>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <parentseries>' + KuseNiNarisouStyleSeriesIDElement.value + '</parentseries>\n');
   } else {
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <parentseries>' + SeriesIDEntryFieldElement.value + '</parentseries>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <parentseries>' + SeriesIDEntryFieldElement.value + '</parentseries>\n');
   }
 
   //"parentdisplayname" "chaptersummary" "chapterdisplaynum" "chapternum" "pagecount"
   const ScanlationSummaryElement = document.getElementById("ScanlationSummary");
+  const ScanlationSummaryElementValue = ScanlationSummaryElement.value;
+  ScanlationSummaryElement.value = ScanlationSummaryElementValue.replaceAll(/\n/g, ' ')
+
   ChaptNumberElement = document.getElementById("ChaptNumber");
   const PageLimiter = document.getElementById("ChaptPageCount");
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <parentdisplayname>' + SeriesXMLDisplayTitle + '</parentdisplayname>\n')
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <chaptersummary>' + ScanlationSummaryElement.value + '</chaptersummary>\n');
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','\n');
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <chapterdisplaynum>' + ChaptNumberElement.value + '</chapterdisplaynum>\n');
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <chapternum>' + verifyDoubleDigitMinimumConformity(ChaptNumberElement.value) + '</chapternum>\n');
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <pagecount>' + PageLimiter.value + '</pagecount>\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <parentdisplayname>' + SeriesXMLDisplayTitle + '</parentdisplayname>\n')
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <chaptersummary>' + ScanlationSummaryElement.value + '</chaptersummary>\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <chapterdisplaynum>' + ChaptNumberElement.value + '</chapterdisplaynum>\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <chapternum>' + verifyDoubleDigitMinimumConformity(ChaptNumberElement.value) + '</chapternum>\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <pagecount>' + PageLimiter.value + '</pagecount>\n');
 
   //"arctitle" and "ja-arc-title"
   if (doArcTitles.checked) {
     const ArcTitleEn = document.getElementById("ScanlationArcTitle");
     const ArcTitleJa = document.getElementById("OriginalChapterArcTitle");
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <arctitle>' + ArcTitleEn.value + '</arctitle>\n');
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <ja-arc-title>' + ArcTitleJa.value + '</ja-arc-title>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <arctitle>' + ArcTitleEn.value + '</arctitle>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <ja-arc-title>' + ArcTitleJa.value + '</ja-arc-title>\n');
   }
 
   //"chaptertitle" and "ja-chapter-title"
   if (doChaptTitles.checked) {
     const ChapterTitleEn = document.getElementById("ScanlationTitle");
     const ChapterTitleJa = document.getElementById("OriginalChapterTitle");
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <chaptertitle>' + ChapterTitleEn.value + '</chaptertitle>\n');
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <ja-chapter-title>' + ChapterTitleJa.value + '</ja-chapter-title>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <chaptertitle>' + ChapterTitleEn.value + '</chaptertitle>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <ja-chapter-title>' + ChapterTitleJa.value + '</ja-chapter-title>\n');
   }
 
   //"publisd" "scanlatd" "scanlator" "type" "returnlinkstyle"
@@ -315,39 +466,39 @@ function generateCurrentChapterXML() {
   const ScanlatorElement = document.getElementById("ScanlatorSetting");
   const ReleaseTypeElement = document.getElementById("ChapterReleaseType");
   const ReturnStyleElement = document.getElementById("PageReturnDestination");
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <publisd>' + PublicationDateElement.value + '</publisd>\n');
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <scanlatd>' + ScanlationDateElement.value + '</scanlatd>\n');
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <scanlator>' + ScanlatorElement.value + '</scanlator>\n');
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <type>' + ReleaseTypeElement.value + '</type>\n');
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <returnlinkstyle>' + ReturnStyleElement.value + '</returnlinkstyle>\n');
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <publisd>' + PublicationDateElement.value + '</publisd>\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <scanlatd>' + ScanlationDateElement.value + '</scanlatd>\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <scanlator>' + ScanlatorElement.value + '</scanlator>\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <type>' + ReleaseTypeElement.value + '</type>\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <returnlinkstyle>' + ReturnStyleElement.value + '</returnlinkstyle>\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','\n');
 
   //"next-series" "next-number"
   const NextChapterIDElement = document.getElementById("NextChaptSeriesID");
   const NextChapterNumElement = document.getElementById("NextChaptNumber");
   if (NextChaptCheckBox.checked) {
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <next-series>' + NextChapterIDElement.value + '</next-series>\n');
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <next-number>' + verifyDoubleDigitMinimumConformity(NextChapterNumElement.value) + '</next-number>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <next-series>' + NextChapterIDElement.value + '</next-series>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <next-number>' + verifyDoubleDigitMinimumConformity(NextChapterNumElement.value) + '</next-number>\n');
   } else {
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <next-series>null</next-series>\n');
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <next-number>null</next-number>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <next-series>null</next-series>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <next-number>null</next-number>\n');
   }
 
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','\n');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','\n');
 
   //"previous-series" "previous-chapter"
   const PreviousChapterIDElement = document.getElementById("PrevChaptSeriesID");
   const PreviousChapterNumElement = document.getElementById("PrevChaptNumber");
   if (LastChaptCheckBox.checked) {
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <previous-series>' + PreviousChapterIDElement.value + '</previous-series>\n');
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <previous-chapter>' + verifyDoubleDigitMinimumConformity(PreviousChapterNumElement.value) + '</previous-chapter>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <previous-series>' + PreviousChapterIDElement.value + '</previous-series>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <previous-chapter>' + verifyDoubleDigitMinimumConformity(PreviousChapterNumElement.value) + '</previous-chapter>\n');
   } else {
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <previous-series>null</previous-series>\n');
-    ChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <previous-chapter>null</previous-chapter>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <previous-series>null</previous-series>\n');
+    CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','  <previous-chapter>null</previous-chapter>\n');
   }
 
   //closing tag
-  ChapterEntryInsertionPoint.insertAdjacentText('beforeend','</chapter>');
+  CurrentChapterEntryInsertionPoint.insertAdjacentText('beforeend','</chapter>');
 
 }
 
@@ -395,6 +546,8 @@ function loadSeriesXML(SeriesIDToLoad) {
     SeriesXMLChapterTotal = seriesXML.getElementsByTagName("chapter-count")[0].childNodes[0].nodeValue;
     SeriesXMLChapterListOrder = seriesXML.getElementsByTagName("order")[0].childNodes[0].nodeValue;
     const ChapterDropdownSelect = document.getElementById("ChapterPlacementSetting");
+    ChapterDropdownSelect.innerHTML = "<option value='0'>nothing. Place Before All</option>";
+    SeriesXMLChaptersArray = [];
     var holdCurrentEntry;
     //Loop to collect chapter entries
     ++SeriesXMLChapterTotal
@@ -581,6 +734,121 @@ function openGithubPage(target) {
 
 }
 
+//Does what it says. Checks for empty tags.
+function checkFinishedXmlForEmptyTags() {
+  CurrentChapterEntryInsertionPoint = document.querySelector("#CurrentChapterChapterDotXMLReGenerated");
+  SeriesEntryInsertionPoint = document.querySelector("#SeriesDotXMLReGenerated");
 
+  const xmlTestCurrChapt = CurrentChapterEntryInsertionPoint.innerText;
+  const xmlTestSeries = SeriesEntryInsertionPoint.innerText;
+
+  if (xmlTestCurrChapt.includes("></") || xmlTestCurrChapt.includes(">1900/1/1<")) {
+    CurrentChapterEntryInsertionPoint.innerText = 'Empty tags were generated, please check your configuration.';
+  }
+  if (xmlTestSeries.includes("></") || xmlTestSeries.includes("/Chapt/")) {
+    SeriesEntryInsertionPoint.innerText = 'Empty tags were generated, please check your configuration.';
+  }
+}
+
+function regeneratePreviewChapterEntry() {
+  var CurrChaptXMLArcTitle, CurrChaptXMLChapterTitle, CurrChaptXMLArcTitleOrig, CurrChaptXMLChapterNumReadable, CurrChaptXMLChapterTitleOrig, CurrChaptXMLPubDate, CurrChaptXMLScanDate, CurrChaptXMLChapterScanlator, CurrChaptXMLChapterDesc, SerializationOneShotWhichCurrentIs;
+  ArcTitlesEnabledCheckbox = document.getElementById("HasChapterArcTitles");
+  CurrChaptXMLArcTitle = document.getElementById("ScanlationArcTitle");
+  CurrChaptXMLArcTitleOrig = document.getElementById("OriginalChapterArcTitle");
+  if (ArcTitlesEnabledCheckbox.checked) {
+    CurrChaptXMLArcTitle = "<span class='arc-title'>" + CurrChaptXMLArcTitle.value + "</span>";
+    CurrChaptXMLArcTitleOrig = "<span class='arc-title-ja'>" + CurrChaptXMLArcTitleOrig.value + "</span>";
+  } else {
+    CurrChaptXMLArcTitle = "";
+    CurrChaptXMLArcTitleOrig = "";
+  }
+  //Chapter Release Type (One-shot or Serialization)
+  SerializationOneShotWhichCurrentIs = document.getElementById("ChapterReleaseType");
+  if (SerializationOneShotWhichCurrentIs.value === "one-shot") {
+    SerializationOneShotWhichCurrentIs = "<span class='is-one-shot'>One-Shot</span>";
+  } else {
+    SerializationOneShotWhichCurrentIs = "";
+  }
+  //Insert Chapter titles
+  ChapterTitlesEnabledCheckbox = document.getElementById("HasChapterTitles");
+  CurrChaptXMLChapterTitle = document.getElementById("ScanlationTitle");
+  CurrChaptXMLChapterTitleOrig = document.getElementById("OriginalChapterTitle");
+  if (ChapterTitlesEnabledCheckbox.checked) {
+    CurrChaptXMLChapterTitle = ": " + CurrChaptXMLChapterTitle.value;
+    CurrChaptXMLChapterTitleOrig = CurrChaptXMLChapterTitleOrig.value;
+  } else {
+    CurrChaptXMLChapterTitle = "";
+    CurrChaptXMLChapterTitleOrig = "";
+  }
+  CurrChaptXMLChapterNumReadable = document.getElementById("ChaptNumber");
+  CurrChaptXMLChapterNumReadable = CurrChaptXMLChapterNumReadable.value;
+
+  CurrChaptXMLChapterDesc = document.getElementById("ScanlationSummary");
+  //Prevent newline in chapter summary. This will break XML.
+  const ScanlationSummaryElementValue = CurrChaptXMLChapterDesc.value;
+  CurrChaptXMLChapterDesc.value = ScanlationSummaryElementValue.replaceAll(/\n/g, ' ')
+
+  CurrChaptXMLChapterDesc = CurrChaptXMLChapterDesc.value;
+  CurrChaptXMLPubDate = document.getElementById("InitialReleaseDateSetting");
+  CurrChaptXMLPubDate = CurrChaptXMLPubDate.value;
+  CurrChaptXMLScanDate = document.getElementById("ScanlationDateSetting");
+  CurrChaptXMLScanDate = CurrChaptXMLScanDate.value;
+  CurrChaptXMLChapterScanlator = document.getElementById("ScanlatorSetting");
+  CurrChaptXMLChapterScanlator = CurrChaptXMLChapterScanlator.value;
+
+
+
+
+  //Parse XML for Neighbor Chapter
+  NavDropdown = document.getElementById("ChapterPlacementSetting");
+  //console.log("Current dropdown value is " + NavDropdown.value);
+    const CurrentChapterPreviewInsertionPoint = document.getElementById("CurrentChapterPreviewParent");
+  if (NavDropdown.value !== "0") {
+    var NeighborChaptXMLArcTitle, NeighborChaptXMLChapterNumReadable, NeighborChaptXMLChapterTitle, NeighborChaptXMLArcTitleOrig, NeighborChaptXMLChapterNumReadable, NeighborChaptXMLChapterTitleOrig, NeighborChaptXMLPubDate, NeighborChaptXMLScanDate, NeighborChaptXMLChapterScanlator, NeighborChaptXMLChapterDesc, SerializationOneShotWhichPreviousIs;
+
+    var text, parser, previousChapterXML;
+    text = loadFileToElement("https://boredstudent13255.github.io/sc-manga-reader/titles/" + SeriesXMLChaptersArray[NavDropdown.value - 1] + "chapter.xml");
+    parser = new DOMParser();
+    previousChapterXML = parser.parseFromString(text,"text/xml");
+    NeighborChaptXMLChapterNumReadable = previousChapterXML.getElementsByTagName("chapterdisplaynum")[0].childNodes[0].nodeValue;
+    if (text.includes("<chaptertitle>")) {
+      NeighborChaptXMLChapterTitle = ": " + previousChapterXML.getElementsByTagName("chaptertitle")[0].childNodes[0].nodeValue;
+      NeighborChaptXMLChapterTitleOrig = previousChapterXML.getElementsByTagName("ja-chapter-title")[0].childNodes[0].nodeValue;
+    } else {
+      NeighborChaptXMLChapterTitle = "";
+      NeighborChaptXMLChapterTitleOrig = "";
+    }
+    if (text.includes("<arctitle>")) {
+      NeighborChaptXMLArcTitle = "<span class='arc-title'>" + previousChapterXML.getElementsByTagName("arctitle")[0].childNodes[0].nodeValue + "</span>";
+      NeighborChaptXMLArcTitleOrig = "<span class='arc-title-ja'>" + previousChapterXML.getElementsByTagName("ja-arc-title")[0].childNodes[0].nodeValue + "</span>";
+    } else {
+      NeighborChaptXMLArcTitle = "";
+      NeighborChaptXMLArcTitleOrig = "";
+    }
+    if (text.includes("<type>one-shot</type>")) {
+      SerializationOneShotWhichPreviousIs = "<span class='is-one-shot'>One-Shot</span>";
+    } else {
+      SerializationOneShotWhichPreviousIs = "";
+    }
+    NeighborChaptXMLChapterDesc = previousChapterXML.getElementsByTagName("chaptersummary")[0].childNodes[0].nodeValue;
+
+    NeighborChaptXMLPubDate = previousChapterXML.getElementsByTagName("publisd")[0].childNodes[0].nodeValue;
+    NeighborChaptXMLScanDate = previousChapterXML.getElementsByTagName("scanlatd")[0].childNodes[0].nodeValue;
+    if (text.includes("<scanlator>")) {
+      NeighborChaptXMLChapterScanlator = previousChapterXML.getElementsByTagName("scanlator")[0].childNodes[0].nodeValue;
+    } else {
+      NeighborChaptXMLChapterScanlator = "<i><span style='color: FF0000;'>No Scanlator was Specified.</span> Main page is defaulting to My Future Translations.</i>";
+    }
+
+    if (SeriesXMLChapterListOrder == "afterend") {
+      CurrentChapterPreviewInsertionPoint.innerHTML = "<br><div class='scan-chapter'><i>Current Chapter</i><div class='scan-data'><span class='chapter-title-en'>" + SerializationOneShotWhichCurrentIs + CurrChaptXMLArcTitle + "Chapter " + CurrChaptXMLChapterNumReadable + CurrChaptXMLChapterTitle + "</span><div class='chapter-title-ja'>" + CurrChaptXMLArcTitleOrig + "第" + CurrChaptXMLChapterNumReadable + "話　" + CurrChaptXMLChapterTitleOrig + "</div><div class='years'>Published " + CurrChaptXMLPubDate + ", Scanlated " + CurrChaptXMLScanDate + " by " + CurrChaptXMLChapterScanlator + "</div><div class='scandata2'>" + CurrChaptXMLChapterDesc + "</div></div></div>" + "<div style='opacity: 0.5;' class='scan-chapter'><i>Previous Chapter</i><div class='scan-data'><span class='chapter-title-en'>" + SerializationOneShotWhichPreviousIs + NeighborChaptXMLArcTitle + "Chapter " + NeighborChaptXMLChapterNumReadable + NeighborChaptXMLChapterTitle + "</span><div class='chapter-title-ja'>" + NeighborChaptXMLArcTitleOrig + "第" + NeighborChaptXMLChapterNumReadable + "話　" + NeighborChaptXMLChapterTitleOrig + "</div><div class='years'>Published " + NeighborChaptXMLPubDate + ", Scanlated " + NeighborChaptXMLScanDate + " by " + NeighborChaptXMLChapterScanlator + "</div><div class='scandata2'>" + NeighborChaptXMLChapterDesc + "</div></div></div>";
+    } else {
+      CurrentChapterPreviewInsertionPoint.innerHTML = "<div style='opacity: 0.5;' class='scan-chapter'><i>Previous Chapter</i><div class='scan-data'><span class='chapter-title-en'>" + SerializationOneShotWhichPreviousIs + NeighborChaptXMLArcTitle + "Chapter " + NeighborChaptXMLChapterNumReadable + NeighborChaptXMLChapterTitle + "</span><div class='chapter-title-ja'>" + NeighborChaptXMLArcTitleOrig + "第" + NeighborChaptXMLChapterNumReadable + "話　" + NeighborChaptXMLChapterTitleOrig + "</div><div class='years'>Published " + NeighborChaptXMLPubDate + ", Scanlated " + NeighborChaptXMLScanDate + " by " + NeighborChaptXMLChapterScanlator + "</div><div class='scandata2'>" + NeighborChaptXMLChapterDesc + "</div></div></div>" + "<div class='scan-chapter'><i>Current Chapter</i><div class='scan-data'><span class='chapter-title-en'>" + SerializationOneShotWhichCurrentIs + CurrChaptXMLArcTitle + "Chapter " + CurrChaptXMLChapterNumReadable + CurrChaptXMLChapterTitle + "</span><div class='chapter-title-ja'>" + CurrChaptXMLArcTitleOrig + "第" + CurrChaptXMLChapterNumReadable + "話　" + CurrChaptXMLChapterTitleOrig + "</div><div class='years'>Published " + CurrChaptXMLPubDate + ", Scanlated " + CurrChaptXMLScanDate + " by " + CurrChaptXMLChapterScanlator + "</div><div class='scandata2'>" + CurrChaptXMLChapterDesc + "</div></div></div>";
+    }
+  } else {
+//      CurrentChapterPreviewInsertionPoint.innerHTML = "test";
+      CurrentChapterPreviewInsertionPoint.innerHTML = "<br><br><br><br><div class='scan-chapter'><i>Current Chapter <span style='font-size: 14; opacity: 0.75;'>(You have not set a previous chapter!)</span></i><div class='scan-data'><span class='chapter-title-en'>" + SerializationOneShotWhichCurrentIs + CurrChaptXMLArcTitle + "Chapter " + CurrChaptXMLChapterNumReadable + CurrChaptXMLChapterTitle + "</span><div class='chapter-title-ja'>" + CurrChaptXMLArcTitleOrig + "第" + CurrChaptXMLChapterNumReadable + "話　" + CurrChaptXMLChapterTitleOrig + "</div><div class='years'>Published " + CurrChaptXMLPubDate + ", Scanlated " + CurrChaptXMLScanDate + " by " + CurrChaptXMLChapterScanlator + "</div><div class='scandata2'>" + CurrChaptXMLChapterDesc + "</div></div></div>";
+  }
+}
   </script>
 </html>
